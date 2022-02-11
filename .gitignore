@@ -80,3 +80,6 @@ dist/
 
 # Google
 android/app/google-services.json
+
+# log files
+*.log
