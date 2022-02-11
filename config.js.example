@@ -1,0 +1,21 @@
+console.log(process.env)
+export const firebaseConfig = {
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
+  measurementId: ""
+}
+
+export const app = {
+  name: "",
+  org: "",
+  version: "",
+  description: "",
+  website: "",
+  email: "",
+  dark: false
+}
