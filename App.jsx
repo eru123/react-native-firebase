@@ -6,8 +6,9 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import { firebaseConfig } from './config.js'
-const app = initializeApp(firebaseConfig);
+import cfg from './config.js'
+
+initializeApp(cfg.firebaseConfig);
 
 const Stack = createNativeStackNavigator();
 const auth = getAuth()

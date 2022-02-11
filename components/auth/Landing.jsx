@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, SafeAreaView, StatusBar, Pressable , Appearance } from 'react-native'
 import tw from 'tailwind-react-native-classnames'
-import { app } from '../../config'
+import cfg from '../../config.js'
+const app = cfg.app
+
 export default class Landing extends Component {
   constructor(props){
 	super(props);
