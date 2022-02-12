@@ -79,7 +79,7 @@ dist/
 # @end expo-cli
 
 # Google
-android/app/google-services.json
+google-services.json
 
 # log files
 *.log
