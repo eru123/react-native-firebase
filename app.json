@@ -24,16 +24,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "ml.skiddph.uforms",
-      "googleServicesFile": "./google-services.json"
+      "package": "ml.skiddph.uforms"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "@react-native-firebase/app",
-      "@react-native-firebase/perf",
-      "@react-native-firebase/crashlytics"
     ]
   }
 }
