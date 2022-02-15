@@ -1,31 +1,36 @@
-import {makeObservable, computed, action, observable} from 'mobx';
+import { makeObservable, action, observable } from 'mobx';
 
 class User {
-  user = null
-  auth = null
+  userProvider = Object.create(null);
+  userProfile = Object.create(null);
+  createMode = false;
+  auth = false
 
-  contructor() {
+  constructor() {
     makeObservable(this, {
-      user: observable,
+      userProvider: observable,
+      userProfile: observable,
+      createMode: observable,
       auth: observable,
-      setUser: action,
-      auth: computed,
-      user: computed
+      setUserProvider: action,
+      setUserProfile: action,
+      setCreateMode: action
     })
   }
 
-  get getAuth() {
-    return this.auth
+  setUserProvider(userProvider) {
+    this.userProvider = userProvider;
+    this.auth = Boolean(userProvider);
+    if (!this.auth) this.userProfile = Object.create(null);
   }
 
-  get getUser() {
-    return this.user
+  setUserProfile(userProfile) {
+    this.userProfile = userProfile;
   }
 
-  setUser(user) {
-    this.user = user
-    this.auth = Boolean(user)
+  setCreateMode(createMode) {
+    this.createMode = createMode;
   }
 }
 
-export default new User();
+export const userStore = new User();
