@@ -16,8 +16,8 @@ class Counter {
     return 'The train is delayed by' + this.count;
   };
 
-  increment(){
-    this.count++;
+  increment(x = 1){
+    this.count += x;
   }
 
   decrement(){
@@ -25,4 +25,4 @@ class Counter {
   }
 }
 
-export default new Counter();
+export const counterStore = new Counter();
