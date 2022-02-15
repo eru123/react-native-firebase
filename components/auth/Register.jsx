@@ -1,10 +1,12 @@
-import React, { Component, useEffect } from 'react'
-import { Text, View, Button, TextInput, SafeAreaView, Pressable } from 'react-native'
+import React, { Component } from 'react'
+import { Text, View, TextInput, SafeAreaView, Pressable, Alert } from 'react-native'
 import tw from 'tailwind-react-native-classnames'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import Spinner from 'react-native-loading-spinner-overlay';
-
-export default class Register extends Component {
+import {userStore} from '../../store/user'
+import {observer} from 'mobx-react'
+import {authError} from '../../lib/firebase'
+class Register extends Component {
 	constructor(props) {
 		super(props);
 
@@ -18,8 +20,6 @@ export default class Register extends Component {
 		}
 
 		this.onRegister = this.onRegister.bind(this);
-
-
 	}
 
 	async onRegister() {
@@ -31,23 +31,29 @@ export default class Register extends Component {
 
 		this.setState({ loading: true })
 		const auth = getAuth()
-
-		console.log('register')
+		userStore.setCreateMode(true)
 		await createUserWithEmailAndPassword(auth, email, pass)
-			.then((cred) => {
-				this.setState({ error: '' })
+			.then(async (cred) => {
+				return await cred.user.updateProfile({ displayName: name })
+					.catch(err => {
+						Alert.alert('Success with Error', authError(err.code))
+						return
+					})
 			})
-			.catch((error) => this.setState({ error: error.message }))
-			.finally(() => this.setState({ loading: false }))
+			.catch((error) => {
+				this.setState({ error: authError(error.code) })
+			})
+			.finally(() => {
+				this.setState({ loading: false })
+				userStore.setCreateMode(false)
+			})
 	}
 
 	render() {
 		function Error(p) {
 			const { error, style } = p
 			if (error) {
-				const trimmed = String(error).trim().split(':')
-				const proc = trimmed.length > 1 ? trimmed[ 1 ] : trimmed[ 0 ]
-				return <Text style={{ ...tw`${style}`, maxWidth: 300 }}>{proc}</Text>
+				return <Text style={{ ...tw`${style}`, maxWidth: 300 }}>{error}</Text>
 			} else return null
 		}
 
@@ -60,9 +66,6 @@ export default class Register extends Component {
 						overlayColor='rgba(0, 0, 0, 0.6)'
 						textStyle={tw`text-white`}
 					/> : null}
-					<View style={tw`mb-20 flex items-center justify-center`}>
-						<Text style={tw`font-bold text-gray-600 text-3xl`}>Register</Text>
-					</View>
 					<Error style={`text-red-500 text-center mb-4`} error={this.state.error} />
 					<View style={tw`flex flex-col items-center justify-between`}>
 						<TextInput style={inputStyle} placeholder="Email" onChangeText={(email) => this.setState({ email })} />
@@ -81,3 +84,4 @@ export default class Register extends Component {
 }
 
 const inputStyle = { ...tw`border rounded-3xl border-gray-300 py-3 px-4 mb-4`, width: 300 }
+export default observer(Register)
