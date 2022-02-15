@@ -53,14 +53,6 @@ const App = observer(() => {
 
 	if(!loaded) return <View style={tw`flex items-center justify-center`}><Text>Loading...</Text></View>
 
-	// if(!userStore.auth)return (
-	// 	<View style={tw`flex-1 justify-center items-center`}>
-	// 		<Text>{userStore.userProvider?.uid}</Text>
-	// 		<Button title="Login" onPress={() => login()} />
-	// 		<Button title="Register" onPress={() => register()} />
-	// 	</View>
-	// )
-
 	if (!userStore.auth || userStore.createMode) return (
 		<NavigationContainer>
 			<Stack.Navigator initialRouteName="Landing">
