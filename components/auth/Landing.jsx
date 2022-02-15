@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
-import { View, Text, SafeAreaView, StatusBar, Pressable, Appearance } from 'react-native'
+import { View, Text, SafeAreaView, StatusBar, Pressable } from 'react-native'
 import tw from 'tailwind-react-native-classnames'
-import cfg from '../../config.js'
-const app = cfg.app
+// import cfg from '../../config.js'
+const app = {
+	name: 'Universal Forms',
+	org: 'SKIDD PH',
+	version: '1.0.0',
+	description: 'Create forms with ease',
+	website: 'https://forms-alt.firebaseapp.com',
+	email: 'hello@skiddph.ml',
+	dark: false,
+}
 
 export default class Landing extends Component {
 	constructor(props) {
